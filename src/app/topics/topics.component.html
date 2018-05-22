@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-3 sidebar-outer">
+    <div class="sidebar-nav-fixed fixed">
+      <nav>
+        <ul class="topics list-unstyled">
+          <li *ngFor="let topic of topics">
+              <a (click)="openTopic(topic)">
+                <span class="badge">{{topic.id}}</span> {{topic.title}}
+              </a>
+          </li>
+          <li>
+            <label>New Topic Title:
+              <input #topicTitle />
+            </label>
+            <br>
+            <!-- (click) passes input value to add() and then clears the input -->
+              <button (click)="addTopic(topicTitle.value); topicTitle.value=''">
+                add
+              </button>
+          </li>
+        </ul>
+
+      </nav>
+    </div>
+  </div>
+  <div class="col-9">
+    <app-notes [topic]="selectedTopic"></app-notes>
+  </div>
+</div>
