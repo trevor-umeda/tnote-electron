@@ -1,0 +1,32 @@
+<div class="wrapper">
+  <nav id="sidebar" [ngClass]="{'sidebar active': shown == 'notActive' }">
+    <div class="sidebar-header">
+        <h4>TNote</h4>
+    </div>
+    <ul class="topics list-unstyled components fixed">
+      <li *ngFor="let topic of topics">
+          <a (click)="openTopic(topic)">
+            <span class="badge">{{topic.id}}</span> {{topic.title}}
+          </a>
+      </li>
+      <li class="new-topic">
+        <label>
+          New Topic Title:
+        </label><br>
+        <input #topicTitle />
+        <br>
+        <!-- (click) passes input value to add() and then clears the input -->
+          <button (click)="addTopic(topicTitle.value); topicTitle.value=''">
+            add
+          </button>
+      </li>
+    </ul>
+  </nav>
+  <div class="content">
+    <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn" (click)="collapse()">
+        <i class="glyphicon glyphicon-align-left"></i>
+        Toggle Sidebar
+    </button>
+    <app-notes [topic]="selectedTopic"></app-notes>
+  </div>
+</div>

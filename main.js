@@ -9,13 +9,14 @@ function createWindow () {
     height: 800,
     backgroundColor: '#ffffff',
     icon: `file://${__dirname}/dist/assets/logo.png`
+
   })
 
 
   win.loadURL(`file://${__dirname}/dist/tnote-electron/index.html`)
 
   //// uncomment below to open the DevTools.
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 
   // Event when the window is closed.
   win.on('closed', function () {

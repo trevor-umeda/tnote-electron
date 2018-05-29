@@ -1,62 +1,34 @@
-<div class="row">
-  <div class="col-10 col-sm-9">
-    <div *ngIf="topic">
-      <div class="notes list-unstyled list-group">
-        <a *ngFor="let note of selectedTopicNotes" class="list-group-item list-group-item-action">
-          <div class="card">
-            <div class="card-body">
-              <a (click)="selectNote(note)">
-              <h3 class="card-title">{{note.title}}</h3>
-              <p class="card-text">{{note.text}}</p>
-              </a>
-              <button *ngIf="note.children.length == 0" class="delete float-right" title="delete note" (click)="deleteNote(note)">x</button>
-              <div *ngIf="note.children && note.children.length > 0">
-                <div class="subnotes list-group list-group-flush">
-                  <a *ngFor="let noteChild of note.children" class="list-group-item list-group-item-action" (click)="selectNote(noteChild)">
-                      <h6 class="text-center">{{noteChild.title}}</h6>
-                      <div *ngIf="containsYoutube(noteChild.text)">
-                        <iframe width="500" height="250" [src]="vidUrl(noteChild.text)" frameborder="0" allowfullscreen=""></iframe>
-                      </div>
-                      <div *ngIf="containsTwitter(noteChild.text)">
-                        <app-tweet [tweet]="noteChild.text"></app-tweet>
-                      </div>
-                      <div *ngIf="!containsYoutube(noteChild.text) && !containsTwitter(noteChild.text)">
-                        -----{{noteChild.text}}
-                      </div>
-                      <button *ngIf="noteChild.children && noteChild.children.length == 0" class="delete float-right" title="delete note" (click)="deleteNote(noteChild, note)">x</button>
-                    <div *ngIf="noteChild.children && note.children.length > 0">
-                      <li *ngFor="let secondNoteChild of noteChild.children">
-                        <footer class="blockquote-footer">{{secondNoteChild.title}} - - {{secondNoteChild.text}}
-                          <button class="delete" title="delete note"
-                (click)="deleteNote(secondNoteChild, noteChild)">x</button></footer>
-                      </li>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
+<div class="wrapper" *ngIf="topic">
+  <nav id="sidebar">
+    <div class="sidebar-header">
+        <h3>{{topic.title}}</h3>
     </div>
-  </div>
+    <ul class="list-unstyled components">
+      <li *ngFor="let note of selectedTopicNotes" >
 
-  <div class="col-2 col-sm-3">
-    <div *ngIf="topic && recentlySelected=='topic'">
-      <label>New Note for Topic: '{{topic.title}}':<br>
-            <input #noteTitle placeholder="Note Title"/><br>
-            <input #noteText placeholder="Note Text"/><br>
-            <button class="save"
-        (click)="save(noteTitle.value, noteText.value)">save</button>
-      </label>
-    </div>
-    <div *ngIf="selectedNote && recentlySelected=='note'">
-      <label>New SubNote for Note '{{selectedNote.title}}':<br>
-            <input #noteTitle placeholder="Note Title"/><br>
-            <input #noteText placeholder="Note Text"/><br>
-            <button class="save"
-        (click)="save(noteTitle.value, noteText.value)">save</button>
-      </label>
-    </div>
+        <a (click)="selectTopNote(note)">
+          <h3 >{{note.title}}
+            <button *ngIf="!note.children || note.children.length == 0"
+            type="button" class="close" aria-label="Close" (click)="deleteNote(note)">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </h3>
+          <p>
+            {{note.text}}
+          </p>
+        </a>
+      </li>
+      <li id="new-note">
+        <label>New Note:<br>
+              <input #noteTitle placeholder="Note Title"/><br>
+              <input #noteText placeholder="Note Text"/><br>
+              <button class="btn btn-light"
+          (click)="saveTopNote(noteTitle.value, noteText.value); noteText.value=''; noteTitle.value=''">save</button>
+        </label>
+      </li>
+     </ul>
+  </nav>
+  <div id="content">
+    <app-note-detail [note]="topNote"></app-note-detail>
   </div>
 </div>

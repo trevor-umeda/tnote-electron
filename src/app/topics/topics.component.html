@@ -1,29 +1,36 @@
-<div class="row">
-  <div class="col-3 sidebar-outer">
-    <div class="sidebar-nav-fixed fixed">
-      <nav>
-        <ul class="topics list-unstyled">
-          <li *ngFor="let topic of topics">
-              <a (click)="openTopic(topic)">
-                <span class="badge">{{topic.id}}</span> {{topic.title}}
-              </a>
-          </li>
-          <li>
-            <label>New Topic Title:
-              <input #topicTitle />
-            </label>
-            <br>
-            <!-- (click) passes input value to add() and then clears the input -->
-              <button (click)="addTopic(topicTitle.value); topicTitle.value=''">
-                add
-              </button>
-          </li>
-        </ul>
-
-      </nav>
+<div class="wrapper">
+  <nav id="sidebar" [ngClass]="{'sidebar active': shown == 'notActive' }">
+    <div class="sidebar-header">
+        <h3>TNote</h3>
     </div>
-  </div>
-  <div class="col-9">
+    <ul class="topics list-unstyled components fixed">
+      <li *ngFor="let topic of topics">
+          <a (click)="openTopic(topic)">
+            <span class="badge">{{topic.id}}</span> {{topic.title}}
+          </a>
+      </li>
+      <li class="new-topic">
+        <div id="new-topic">
+          <label>
+            New Topic Title:
+          </label><br>
+          <input #topicTitle />
+          <br>
+          <!-- (click) passes input value to add() and then clears the input -->
+            <button class="btn btn-light" (click)="addTopic(topicTitle.value); topicTitle.value=''">
+              add
+            </button>
+        </div>
+      </li>
+      <li>
+        <button type="button" id="sidebar-collapse" class="btn btn-info navbar-btn" (click)="collapse()">
+            <i class="glyphicon glyphicon-align-left"></i>
+            <img src="./assets/arrow-right.svg" alt="arrow">
+        </button>
+      </li>
+    </ul>
+  </nav>
+  <div class="content">
     <app-notes [topic]="selectedTopic"></app-notes>
   </div>
 </div>

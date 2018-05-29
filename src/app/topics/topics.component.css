@@ -8,24 +8,6 @@ h2 {
   margin-top: 0;
   padding-top: 0;
 }
-nav a {
-  padding: 5px 10px;
-  text-decoration: none;
-  margin-top: 10px;
-  display: inline-block;
-  background-color: #eee;
-  border-radius: 4px;
-}
-nav a:visited, a:link {
-  color: #607D8B;
-}
-nav a:hover {
-  color: #039be5;
-  background-color: #CFD8DC;
-}
-nav a.active {
-  color: #039be5;
-}
 
 .sidebar-outer {
     margin-top: 30px;
@@ -33,4 +15,107 @@ nav a.active {
 }
 .fixed {
     position: fixed;
+}
+
+.wrapper {
+    display: flex;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 100vh;
+    background: #7386D5;
+    color: #fff;
+    transition: all 0.3s;
+
+}
+
+#sidebar.active {
+    /*margin-left: -250px;*/
+   min-width: 40px;
+   max-width: 40px;
+   text-align: center;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #6d7fcc;
+}
+
+#sidebar .sidebar-header strong {
+    display: none;
+}
+#sidebar.active .sidebar-header h3 {
+    display: none;
+}
+#sidebar.active .sidebar-header strong {
+    display: block;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+    min-width: 250px;
+    max-width: 250px;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+
+#sidebar ul li #sidebar-collapse {
+    display: none;
+}
+#sidebar.active ul li #sidebar-collapse {
+    display: block;
+    padding: 20px 10px;
+    text-align: center;
+    font-size: 0.85em;
+}
+
+#sidebar.active ul li #new-topic {
+    display: none;
+}
+#sidebar ul li #new-topic {
+    display: block;
+}
+
+#sidebar.active ul li a {
+    display: none;
+}
+
+.new-topic {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+}
+
+#sidebar ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+}
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+    color: #fff;
+    background: #6d7fcc;
+}
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #6d7fcc;
+}
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
 }
