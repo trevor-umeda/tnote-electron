@@ -1,6 +1,0 @@
-#fixedTopForm {
-  position: fixed;
-  left: 50%;
-  top: 90%;
-  margin-left: -100px; /*half the width*/
-}

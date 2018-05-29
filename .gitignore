@@ -33,6 +33,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+/tnote-electron-darwin-x64
 
 # System Files
 .DS_Store
