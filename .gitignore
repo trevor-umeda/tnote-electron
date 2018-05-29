@@ -34,7 +34,7 @@ yarn-error.log
 testem.log
 /typings
 /tnote-electron-darwin-x64
-
+/tnote-electron-win32-x64/
 # System Files
 .DS_Store
 Thumbs.db
