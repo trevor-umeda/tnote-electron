@@ -1,12 +1,16 @@
-{{tweet}}
-
-<blockquote class="twitter-tweet"><p lang="und" dir="ltr">
-  <div *ngIf="isInElectronMode()">
-    <webview id="twitter" preload=".js/injects.js" [attr.src]="tweet"></webview>
+<div class="tweet-outer" (click)="openTweet()">
+  {{tweet}}
+  <img *ngIf="!showTweet" src="./assets/triangle-down.svg" alt="arrow" class="float-right">
+  <img *ngIf="showTweet" src="./assets/triangle-up.svg" alt="arrow" class="float-right">
+  <div *ngIf="showTweet" class="tweet-inner">
+    <blockquote class="twitter-tweet"><p lang="und" dir="ltr">
+      <div *ngIf="isInElectronMode()">
+        <webview id="twitter" preload=".js/injects.js" [attr.src]="tweet"></webview>
+      </div>
+      <div *ngIf="!isInElectronMode()">
+        <a [href]="twitterVidUrl()"></a>
+      </div>
+      <!-- <script id="twitter-wjs" type="text/javascript" async defer src="//platform.twitter.com/widgets.js"></script> -->
+    </blockquote>
   </div>
-  <div *ngIf="!isInElectronMode()">
-    <a [href]="twitterVidUrl()"></a>
-  </div>
-  <!-- <script id="twitter-wjs" type="text/javascript" async defer src="//platform.twitter.com/widgets.js"></script> -->
-
-</blockquote>
+</div>

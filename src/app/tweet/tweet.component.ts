@@ -11,6 +11,7 @@ import { ElectronService } from '../providers/electron.service';
 export class TweetComponent implements OnInit, AfterViewInit {
 
   private _tweet: string;
+  showTweet: boolean;
 
   constructor(private sanitizer: DomSanitizer,
     public electronService: ElectronService) {
@@ -23,39 +24,53 @@ export class TweetComponent implements OnInit, AfterViewInit {
   @Input()
   set tweet(tweet: string) {
     console.log("NOTE_SELECT - " + tweet);
+    this.initializeTwitterJS();
     this._tweet = tweet;
   }
 
   initializeTwitterJS(): void {
-    !function(d,s,id){
-        var js: any,
-            fjs=d.getElementsByTagName(s)[0],
-            p='https';
-        if(!d.getElementById(id)){
-            js=d.createElement(s);
-            js.id=id;
-            js.src=p+"://platform.twitter.com/widgets.js";
-            fjs.parentNode.insertBefore(js,fjs);
-        }
-    }
-    (document,"script","twitter-wjs");
-  }
+    if(!this.isInElectronMode()) {
+      setTimeout(function() {
+      (<any>window).twttr = (function(d, s, id) {
+        let js, fjs = d.getElementsByTagName(s)[0],
+          t = (<any>window).twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = 'https://platform.twitter.com/widgets.js';
+        fjs.parentNode.insertBefore(js, fjs);
 
+        t._e = [];
+        t.ready = function(f) {
+          t._e.push(f);
+        };
+
+        return t;
+      }(document, 'script', 'twitter-wjs'));
+      if((<any>window).twttr.ready())
+      (<any>window).twttr.widgets.load(); }, 100);
+    }
+
+  }
   ngOnInit() {
+    this.showTweet = false;
   }
 
   ngAfterViewInit () {
     this.initializeTwitterJS();
   }
-  twitterLink(test: string) :SafeResourceUrl {
-    console.log("MAKKING SAFE")
-    return this.sanitizer.bypassSecurityTrustResourceUrl(test);
-  }
+
   twitterVidUrl() :SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.tweet);
   }
 
   isInElectronMode() :boolean {
     return this.electronService.isElectron()
+  }
+
+  openTweet() :void {
+    console.log("Click twitter event")
+    this.showTweet = !this.showTweet;
+    this.initializeTwitterJS();
   }
 }

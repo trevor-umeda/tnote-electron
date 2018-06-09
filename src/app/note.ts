@@ -2,6 +2,7 @@ export class Note {
   id: number;
   title: string;
   text: string;
+  tag: string;
   created: Date;
   noteId: number;
   topicId: number;
@@ -9,6 +10,6 @@ export class Note {
 
   constructor(title: string, text: string) {
     this.title = title;
-    this.text = text; 
+    this.text = text;
   }
 }

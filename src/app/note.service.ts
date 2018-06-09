@@ -22,7 +22,14 @@ export class NoteService {
   /** GET Notes from the server */
   getNotes (): Observable<Note[]> {
     console.log("NOTE_SERVICE - getting notes")
-    const notes = this.http.get<Note[]>(this.notesUrl);
+    const notes = this.http.get<Note[]>(this.notesUrl+"?page=0&size=50");
+    console.log(notes)
+    return notes;
+  }
+
+  getNotesByTopic (topicId: number): Observable<Note[]> {
+    console.log("NOTE_SERVICE - getting notes")
+    const notes = this.http.get<Note[]>(this.notesUrl+"?topicId="+topicId+"&page=0&size=50");
     console.log(notes)
     return notes;
   }
@@ -32,6 +39,14 @@ export class NoteService {
     console.log("Adding new note ", note);
     return this.http.post<Note>(this.notesUrl, JSON.stringify(note), httpOptions).pipe(
        catchError(this.handleError)
+    );
+  }
+
+  /** PUT: update the hero on the server */
+  updateNote (note: Note): Observable<any> {
+    console.log("Editing note ", note)
+    return this.http.put(this.notesUrl, JSON.stringify(note), httpOptions).pipe(
+      catchError(this.handleError)
     );
   }
 

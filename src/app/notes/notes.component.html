@@ -5,7 +5,6 @@
     </div>
     <ul class="list-unstyled components">
       <li *ngFor="let note of selectedTopicNotes" >
-
         <a (click)="selectTopNote(note)">
           <h3 >{{note.title}}
             <button *ngIf="!note.children || note.children.length == 0"
@@ -17,6 +16,11 @@
             {{note.text}}
           </p>
         </a>
+        <ul [ngClass]="{'list-unstyled collapse': topNote != note }" class="list-unstyled" id="homeSubmenu">
+            <li *ngFor="let tag of collectTags(note)">
+              <a (click)="selectTag(tag)">{{tag}}</a>
+            </li>
+        </ul>
       </li>
       <li id="new-note">
         <label>New Note:<br>
@@ -29,6 +33,6 @@
      </ul>
   </nav>
   <div id="content">
-    <app-note-detail [note]="topNote"></app-note-detail>
+    <app-note-detail (clearTagCacheEvent)="reloadCache($event)" [note]="topNote" [tag]="selectedTag"></app-note-detail>
   </div>
 </div>

@@ -1,0 +1,148 @@
+schema_version: 1.0.0
+environment-instance:
+  environment: cap-environment
+  version: 0.1.2
+  location: globalqa.las2.example1
+  runtime: globalriot.las2.admiral1
+  presets:
+  - office
+  applications:
+  - name: cap.offers
+    network:
+      outbounds:
+      - service: cap.mysql
+        locations:
+        - lolqa.las2.capqa
+      - service: coreinfra.internet_proxy
+        locations:
+        - globalriot.las2.proxy1
+      - service: store.catalog
+        locations:
+        - lolqa.las1.riot3
+    pack:
+      env:
+      - name: HTTP_PROXY
+        value: http://10.151.32.45:3128
+        description: no global policy
+      - name: RC_SPRING_PROFILES
+        value: hibernate
+  - name: cap.orders
+    network:
+      outbounds:
+      - service: cap.mysql
+        locations:
+        - lolqa.las2.capqa
+      - service: coreinfra.internet_proxy
+        locations:
+        - globalriot.las2.proxy1
+      - service: store.purchase
+        locations:
+        - lolqa.las1.las1
+    pack:
+      env:
+      - name: HTTP_PROXY
+        value: http://10.151.32.45:3128
+        description: no global policy
+      - name: RC_SPRING_PROFILES
+        value: hibernate,asynchronous
+  - name: cap.entitlements
+    network:
+      outbounds:
+      - service: cap.mysql
+        locations:
+        - lolqa.las2.capqa
+      - service: coreinfra.internet_proxy
+        locations:
+        - globalriot.las2.proxy1
+      - service: store.catalog
+        locations:
+        - lolqa.las1.riot3
+    pack:
+      env:
+      - name: HTTP_PROXY
+        value: http://10.151.32.45:3128
+        description: no global policy
+      - name: RC_SPRING_PROFILES
+        value: hibernate,asynchronous
+  - name: cap.wallets
+    network:
+      outbounds:
+      - service: cap.mysql
+        locations:
+        - lolqa.las2.capqa
+      - service: coreinfra.internet_proxy
+        locations:
+        - globalriot.las2.proxy1
+      - service: store.purchase
+        locations:
+        - lolqa.las1.riot3
+    pack:
+      env:
+      - name: HTTP_PROXY
+        value: http://10.151.32.45:3128
+        description: no global policy
+      - name: RC_SPRING_PROFILES
+        value: hibernate,rabbitmq
+  - name: cap.events
+    network:
+      outbounds:
+      - service: coreinfra.internet_proxy
+        locations:
+        - globalriot.las2.proxy1
+      - service: socialinfra.rms
+        locations:
+        - internal.publish.rms1
+    pack:
+      env:
+      - name: HTTP_PROXY
+        value: http://10.151.32.45:3128
+        description: no global policy
+      - name: RC_SPRING_PROFILES
+        value: asynchronous
+  - name: cap.lolinventoryservice
+    network:
+      outbounds:
+      - service: platform.beapp
+        locations:
+        - lolqa.las1.las1
+      - service: coreinfra.internet_proxy
+        locations:
+        - globalriot.las2.proxy1
+      - service: store.catalog
+        locations:
+        - lolqa.las1.riot3
+      - service: store.purchase
+        locations:
+        - lolqa.las1.las1
+    pack:
+      env:
+      - name: HTTP_PROXY
+        value: http://10.151.32.45:3128
+        description: no global policy
+      - name: RC_DATA_SIGNING_ENABLED
+        value: 'true'
+  - name: cap.redge
+    pack:
+      env:
+      - name: RC_APP_NAME
+        value: cap.redge
+        description: no global policy
+  - name: cap.rabbitmq
+    pack:
+      env:
+      - name: SERVED_LOCATIONS
+        value: lolqa.las2.capqa,globalqa.las2.example1
+        description: no global policy
+      - name: RABBITMQ_ERLANG_COOKIE
+        value: lolqa_las2_capqa_cap_rabbitmq
+  - name: cap.cache
+    pack:
+      env:
+      - name: SERVED_LOCATIONS
+        value: lolqa.las2.capqa,globalqa.las2.example1
+  - name: cap.transfers
+    pack:
+      env:
+      - name: HTTP_PROXY
+        value: http://10.151.32.45:3128
+        description: no global policy

@@ -26,7 +26,6 @@ export class TopicsComponent implements OnInit {
   }
 
   openTopic(topic: Topic): void {
-    console.log(topic);
     this.selectedTopic = topic;
     this.shown="notActive";
   }
