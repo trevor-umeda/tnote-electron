@@ -1,5 +1,10 @@
-<div class="tweet-outer" (click)="openTweet()">
-  {{tweet}}
+<div class="tweet-outer" (click)="openTweet()">  
+  <div *ngIf="isInElectronMode()">
+    <a (click)="openTwitterInBrowser()"> {{tweet}} </a>
+  </div>
+  <div *ngIf="!isInElectronMode()">
+    <a href="{{tweet}}">{{tweet}}</a>
+  </div>
   <img *ngIf="!showTweet" src="./assets/triangle-down.svg" alt="arrow" class="float-right">
   <img *ngIf="showTweet" src="./assets/triangle-up.svg" alt="arrow" class="float-right">
   <div *ngIf="showTweet" class="tweet-inner">

@@ -12,6 +12,7 @@ export class TweetComponent implements OnInit, AfterViewInit {
 
   private _tweet: string;
   showTweet: boolean;
+  // shell: typeof shell;
 
   constructor(private sanitizer: DomSanitizer,
     public electronService: ElectronService) {
@@ -62,6 +63,10 @@ export class TweetComponent implements OnInit, AfterViewInit {
 
   twitterVidUrl() :SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(this.tweet);
+  }
+
+  openTwitterInBrowser() :void {
+      // shell.openExternal('https://github.com')
   }
 
   isInElectronMode() :boolean {

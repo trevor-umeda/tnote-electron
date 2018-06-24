@@ -3,6 +3,11 @@
     <div class="sidebar-header">
         <h3>TNote</h3>
     </div>
+
+    <div id="messages">
+      <app-messages></app-messages>
+    </div>
+
     <ul class="topics list-unstyled components fixed">
       <li *ngFor="let topic of topics">
           <a (click)="openTopic(topic)">

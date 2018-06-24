@@ -11,6 +11,7 @@ import { NoteDetailComponent } from './note-detail/note-detail.component';
 import { ElectronService } from './providers/electron.service';
 import { WebviewDirective } from './webview.directive';
 import { TagFilterPipe } from './note-detail/tag-filter.pipe';
+import { MessagesComponent } from './messages/messages.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { TagFilterPipe } from './note-detail/tag-filter.pipe';
     TweetComponent,
     NoteDetailComponent,
     WebviewDirective,
-    TagFilterPipe
+    TagFilterPipe,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
